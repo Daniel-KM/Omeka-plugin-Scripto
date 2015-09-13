@@ -51,6 +51,7 @@ class ScriptoPlugin extends Omeka_Plugin_AbstractPlugin
      */
     protected $_options = array(
         'scripto_mediawiki_api_url' => '',
+        'scripto_allow_register' => false,
         'scripto_source_element' => 'Scripto:Transcription',
         'scripto_image_viewer' => null,
         'scripto_viewer_class' => '',
@@ -362,6 +363,8 @@ class ScriptoPlugin extends Omeka_Plugin_AbstractPlugin
 
     /**
      * Handle a submitted config form.
+     *
+     * @param array Options set in the config form.
      */
     public function hookConfig($args)
     {
@@ -374,20 +377,16 @@ class ScriptoPlugin extends Omeka_Plugin_AbstractPlugin
 
         // Validate the source element.
         $element = get_record_by_id('Element', (integer) $post['scripto_source_element']);
+        $post['scripto_source_element'] = $element->set_name . ':' . $element->name;
 
-        // Set options that are specific to Scripto.
-        set_option('scripto_mediawiki_api_url', trim($post['scripto_mediawiki_api_url']));
-        set_option('scripto_source_element', $element->set_name . ':' . $element->name);
-        set_option('scripto_image_viewer', $post['scripto_image_viewer']);
-        set_option('scripto_viewer_class', trim($post['scripto_viewer_class']));
-        set_option('scripto_use_google_docs_viewer', $post['scripto_use_google_docs_viewer']);
-        set_option('scripto_iframe_class', trim($post['scripto_iframe_class']));
-        set_option('scripto_file_source', trim($post['scripto_file_source']));
-        set_option('scripto_files_order', trim($post['scripto_files_order']));
-        set_option('scripto_import_type', $post['scripto_import_type']);
-        set_option('scripto_home_page_text', trim($post['scripto_home_page_text']));
+        // Get source path.
+        $post['scripto_file_source_path'] = $this->_getFilePath(get_option('scripto_file_source_path'));
 
-        set_option('scripto_file_source_path', $this->_getFilePath(get_option('scripto_file_source_path')));
+        foreach ($this->_options as $optionKey => $optionValue) {
+            if (isset($post[$optionKey])) {
+                set_option($optionKey, $post[$optionKey]);
+            }
+        }
     }
 
     public function hookAdminHead($args)

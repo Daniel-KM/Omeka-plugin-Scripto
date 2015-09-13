@@ -66,6 +66,8 @@ heavily borrowed from [Joris Lambrechts] particularly [commit5].
 Installation
 ------------
 
+Install [MediaWiki].
+
 Uncompress files and rename plugin folder "Scripto".
 
 Then install it like any other Omeka plugin and follow the config instructions.
@@ -171,9 +173,9 @@ Copyright
 
 * Copyright Center for History and New Media, 2008-2013
 * Copyright Shawn Averkamp, 2012-2013
-* Copyright Daniel Berthereau, 2013-2014
 * Copyright National Library of Wales 2015
 * Copyright JorisLambrechts
+* Copyright Daniel Berthereau, 2013-2015
 
 
 [Scripto]: http://scripto.org/

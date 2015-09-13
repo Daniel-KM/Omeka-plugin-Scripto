@@ -24,6 +24,20 @@
 
 <div class="field">
     <div class="two columns alpha">
+        <label for="scripto_allow_register"><?php echo __('Allow Direct Register'); ?></label>
+    </div>
+    <div class="inputs five columns omega">
+        <p class="explanation">
+            <?php echo __('Allow people to create a Mediawiki account for Scripto through Omeka.'); ?>
+            <?php echo __('Note that this can be a source of spam.'); ?>
+        </p>
+        <?php echo $this->formCheckbox('scripto_allow_register', true,
+                array('checked' => (bool) get_option('scripto_allow_register'))); ?>
+    </div>
+</div>
+
+<div class="field">
+    <div class="two columns alpha">
         <label for="scripto_source_element"><?php echo __('Element source used to initialize transcription'); ?></label>
     </div>
     <div class="inputs five columns omega">

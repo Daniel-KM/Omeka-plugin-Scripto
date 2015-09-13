@@ -99,6 +99,10 @@ class Scripto_IndexController extends Omeka_Controller_AbstractActionController
      */
     public function registerAction()
     {
+        if (!get_option('scripto_allow_register')) {
+            throw new Omeka_Controller_Exception_404;
+        }
+
         $registeredOK = false;
         try {
             $scripto = ScriptoPlugin::getScripto();
