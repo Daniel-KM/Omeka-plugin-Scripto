@@ -95,7 +95,8 @@ class Scripto_Service_MediaWiki extends Zend_Service_Abstract
         'login' => array(
             'lgname', 'lgpassword', 'lgtoken'
         ),
-        'logout' => array()
+        'logout' => array(),
+        'createaccount' => array('name','password','domain','token','email','realname','mailpassword','reason','language')
     );
 
     /**
@@ -550,6 +551,67 @@ class Scripto_Service_MediaWiki extends Zend_Service_Abstract
         $params['token']         = $edittoken;
         $params['basetimestamp'] = $basetimestamp;
         return $this->_request('edit', $params);
+    }
+
+    /**
+     * Register account in MediaWiki.
+     *
+     * @link http://www.mediawiki.org/wiki/API:Account_creation
+     * @param string $lgname
+     * @param string $lgpassword
+     */
+    public function register($username, $password, $email, $realname)
+    {
+        // register or get the token.
+        $params = array('name' => $username,
+                        'email'=> $email,
+                        'password' => $password,
+                        'realname' => $realname,
+                        'language'=> 'en',
+                        'reason' => 'Omeka frontend signup',
+                        'token' => ''
+                );
+
+        $response = $this->_request('createaccount', $params);
+
+        // Confirm the register token.
+        if ('NeedToken' == $response['createaccount']['result']) {
+            $params['token'] = $response['createaccount']['token'];
+            $response = $this->_request('createaccount', $params);
+        }
+
+        // Process a successful registration - success is case sensitive.
+        if ('Success' == $response['createaccount']['result']) {
+            if ($this->_passCookies) {
+
+                // Persist MediaWiki authentication cookies in the browser.
+                foreach (self::getHttpClient()->getCookieJar()->getAllCookies() as $cookie) {
+                    setcookie(self::COOKIE_PREFIX . $cookie->getName(),
+                              $cookie->getValue(),
+                              $cookie->getExpiryTime(),
+                              '/');
+                }
+
+            }
+            return;
+        }
+
+
+        // Process an unsuccessful login.
+        $errors = array('NoName'          => __('Username is empty.'),
+                        'Illegal'         => __('Username is illegal.'),
+                        'NotExists'       => __('Username is not found.'),
+                        'EmptyPass'       => __('Password is empty.'),
+                        'WrongPass'       => __('Password is incorrect.'),
+                        'WrongPluginPass' => __('Password is incorrect (via plugin)'),
+                        'CreateBlocked'   => __('IP address is blocked for account creation.'),
+                        'Throttled'       => __('Login attempt limit surpassed.'),
+                        'Blocked'         => __('User is blocked.'));
+        $error = $response['createaccount']['result'];
+        if (array_key_exists($error, $errors)) {
+            throw new Scripto_Service_Exception($errors[$error]);
+        }
+        throw new Scripto_Service_Exception('Unknown registration error: ' . $response['createaccount']['result']);
     }
 
     /**

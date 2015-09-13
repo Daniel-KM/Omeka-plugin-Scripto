@@ -132,6 +132,23 @@ class Scripto
     }
 
     /**
+     * Register via the MediaWiki service.
+     *
+     * It is possible to restrict account creation in MediaWiki.
+     * @link http://www.mediawiki.org/wiki/API:Account_creation
+     *
+     * @uses Scripto_Service_MediaWiki::register()
+     * @param string $username The MediaWiki user's username.
+     * @param string $password The MediaWiki user's password.
+     * @param string $password The MediaWiki user's email.
+     */
+    public function register($username,$password,$email,$realname)
+    {
+        $this->_mediawiki->register($username,$password,$email,$realname);
+        $this->setUserInfo();
+    }
+
+    /**
      * Login via the MediaWiki service.
      *
      * It is possible to restrict account creation in MediaWiki.

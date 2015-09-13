@@ -15,7 +15,7 @@ jQuery(document).ready(function() {
     jQuery('#scripto-transcription-page-edit').click(function() {
         jQuery('#scripto-transcription-page-edit').
             prop('disabled', true).
-            text('<?php echo __('Editing transcription...'); ?>');
+            text('<?php echo __('Saving transcription...'); ?>');
         jQuery.post(
             <?php echo js_escape(url('scripto/index/page-action')); ?>,
             {
@@ -28,7 +28,7 @@ jQuery(document).ready(function() {
             function(data) {
                 jQuery('#scripto-transcription-page-edit').
                     prop('disabled', false).
-                    text('<?php echo __('Edit transcription'); ?>');
+                    text('<?php echo __('Save transcription'); ?>');
                 jQuery('#scripto-transcription-page-html').html(data);
             }
         );
@@ -333,6 +333,7 @@ jQuery(document).ready(function() {
  | <a href="<?php echo html_escape(url('scripto/watchlist')); ?>"><?php echo __('Your watchlist'); ?></a>
 <?php else: ?>
 <a href="<?php echo html_escape(url('scripto/index/login')); ?>"><?php echo __('Log in to Scripto'); ?></a>
+<a href="<?php echo html_escape(url('scripto/index/register')); ?>"><?php echo __('Register'); ?></a>
 <?php endif; ?>
  | <a href="<?php echo html_escape(url('scripto/recent-changes')); ?>"><?php echo __('Recent changes'); ?></a>
  | <a href="<?php echo html_escape(url(array('controller' => 'items', 'action' => 'show', 'id' => $this->doc->getId()), 'id')); ?>"><?php echo __('View item'); ?></a>
@@ -362,7 +363,7 @@ jQuery(document).ready(function() {
             <?php echo $this->formTextarea('scripto-transcription-page-wikitext', $this->doc->getTranscriptionPageWikitext(), array('cols' => '76', 'rows' => '16')); ?>
         </div>
         <div>
-            <?php echo $this->formButton('scripto-transcription-page-edit', __('Edit transcription'), array('style' => 'display:inline; float:none;')); ?>
+            <?php echo $this->formButton('scripto-transcription-page-edit', __('Save transcription'), array('style' => 'display:inline; float:none;')); ?>
         </div>
         <p><a href="http://www.mediawiki.org/wiki/Help:Formatting" target="_blank"><?php echo __('wiki formatting help'); ?></a></p>
     </div><!-- #scripto-transcription-edit -->
