@@ -649,7 +649,12 @@ class ScriptoPlugin extends Omeka_Plugin_AbstractPlugin
             $item = get_current_record('item');
         }
         $scripto = self::getScripto();
-        return $scripto->documentExists($item->id);
+        try {
+            $result = $scripto->documentExists($item->id);
+        } catch (Exception $e) {
+            return false;
+        }
+        return $result;
     }
 
     /**

@@ -723,7 +723,11 @@ class Scripto_Service_MediaWiki extends Zend_Service_Abstract
                              ->setParameterPost('action', $action);
 
         // Get the response body and reset the request.
-        $body = self::getHttpClient()->request('POST')->getBody();
+        try {
+            $body = self::getHttpClient()->request('POST')->getBody();
+        } catch (Zend_Http_Client_Exception $e) {
+            throw new Scripto_Service_Exception($e->getMessage());
+        }
         self::getHttpClient()->resetParameters();
 
         // Parse the response body, throwing errors when encountered.

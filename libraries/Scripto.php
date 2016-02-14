@@ -228,7 +228,10 @@ class Scripto
      */
     public function setUserInfo()
     {
-        $this->_userInfo = $this->_mediawiki->getUserInfo('groups|rights');
+        try {
+            $this->_userInfo = $this->_mediawiki->getUserInfo('groups|rights');
+        } catch (Zend_Http_Client_Exception $e) {
+        }
     }
 
     /**
