@@ -333,7 +333,9 @@ jQuery(document).ready(function() {
  | <a href="<?php echo html_escape(url('scripto/watchlist')); ?>"><?php echo __('Your watchlist'); ?></a>
 <?php else: ?>
 <a href="<?php echo html_escape(url('scripto/index/login')); ?>"><?php echo __('Log in to Scripto'); ?></a>
- | <a href="<?php echo html_escape(url('scripto/index/register')); ?>"><?php echo __('Register'); ?></a>
+<?php if (get_option('scripto_allow_register')):?>
+ | <a href="<?php echo html_escape(url('scripto/index/register')); ?>"><?php echo __('Register to Scripto'); ?></a>
+<?php endif; ?>
 <?php endif; ?>
  | <a href="<?php echo html_escape(url('scripto/recent-changes')); ?>"><?php echo __('Recent changes'); ?></a>
  | <a href="<?php echo html_escape(url(array('controller' => 'items', 'action' => 'show', 'id' => $this->doc->getId()), 'id')); ?>"><?php echo __('View item'); ?></a>
@@ -410,4 +412,4 @@ jQuery(document).ready(function() {
 
 </div><!-- #scripto-transcribe -->
 </div>
-<?php echo foot(); ?>
+<?php echo foot();

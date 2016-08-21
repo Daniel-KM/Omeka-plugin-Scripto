@@ -12,7 +12,12 @@ echo head($head);
 
 <div id="scripto-login" class="scripto">
     <!-- navigation -->
-    <p><a href="<?php echo html_escape(url(array('action' => 'recent-changes'), 'scripto_action')); ?>"><?php echo __('Recent changes'); ?></a></p>
+<p>
+<?php if (get_option('scripto_allow_register')):?>
+<a href="<?php echo html_escape(url('scripto/index/register')); ?>"><?php echo __('Register to Scripto'); ?></a>
+<?php endif; ?>
+ | <a href="<?php echo html_escape(url(array('action' => 'recent-changes'), 'scripto_action')); ?>"><?php echo __('Recent changes'); ?></a>
+</p>
     <p><?php echo __(
         'Log in to Scripto using your MediaWiki username and password to access your account '
       . 'and enable certain Scripto features. Login may not be required by the administrator.'
@@ -37,4 +42,4 @@ echo head($head);
     </form>
 </div><!-- #scripto-login -->
 </div>
-<?php echo foot(); ?>
+<?php echo foot();

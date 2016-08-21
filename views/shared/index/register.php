@@ -12,11 +12,14 @@ echo head($head);
 
 <div id="scripto-login" class="scripto">
 <!-- navigation -->
-<?php if(isset($registeredOK)){?>
-    <p><?php echo __('Congrats you have registered') ?></p>
-    <p><a href="<?php echo html_escape(url('scripto/index/login')); ?>"><?php echo __('continue here to login'); ?></a></p>
-<?php }else{ ?>
-<p><a href="<?php echo html_escape(url('scripto/index/recent-changes')); ?>"><?php echo __('Recent changes'); ?></a></p>
+<p>
+<a href="<?php echo html_escape(url('scripto/index/login')); ?>"><?php echo __('Log in to Scripto'); ?></a>
+ | <a href="<?php echo html_escape(url('scripto/index/recent-changes')); ?>"><?php echo __('Recent changes'); ?></a>
+ </p>
+<?php if ($registeredOK): ?>
+    <p><?php echo __('Congrats; you have registered.') ?></p>
+    <p><a href="<?php echo html_escape(url('scripto/index/login')); ?>"><?php echo __('Continue here to login.'); ?></a></p>
+<?php else: ?>
 <p><?php echo __(
     'Log in to Scripto using your MediaWiki username and password to access your account '
   . 'and enable certain Scripto features. Login may not be required by the administrator.'
@@ -53,7 +56,7 @@ echo head($head);
 <?php echo $this->formHidden('scripto_redirect_url', $this->redirectUrl); ?>
 <?php echo $this->formSubmit('scripto_mediawiki_register', __('Register'), array('style' => 'display:inline; float:none;')); ?>
 </form>
-<?php } ?>
+<?php endif; ?>
 </div><!-- #scripto-register -->
 </div>
-<?php echo foot(); ?>
+<?php echo foot();

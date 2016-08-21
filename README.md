@@ -175,7 +175,7 @@ Copyright
 * Copyright Shawn Averkamp, 2012-2013
 * Copyright National Library of Wales 2015
 * Copyright JorisLambrechts
-* Copyright Daniel Berthereau, 2013-2015
+* Copyright Daniel Berthereau, 2013-2016
 
 
 [Scripto]: http://scripto.org/

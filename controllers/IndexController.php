@@ -81,13 +81,18 @@ class Scripto_IndexController extends Omeka_Controller_AbstractActionController
 
         // Set the URL to redirect to on a sucessful login.
         $redirectUrl = null;
+        // Assume login error and reassign the parameter.
         if ($this->_getParam('scripto_redirect_url')) {
-            // Assume login error and reassign the parameter.
             $redirectUrl = $this->_getParam('scripto_redirect_url');
-        } else if ('scripto' == $this->getRequest()->getModuleName() && $_SERVER['HTTP_REFERER']) {
-            // Assign HTTP referer to scripto_redirect_url parameter only if
-            // coming from the Scripto application.
-            $redirectUrl = $_SERVER['HTTP_REFERER'];
+        }
+        // Assign HTTP referer to scripto_redirect_url parameter only if
+        // coming from the Scripto application.
+        elseif ($this->getRequest()->getModuleName() == 'scripto'
+                && !empty($_SERVER['HTTP_REFERER'])
+            ) {
+            $redirectUrl = $_SERVER['HTTP_REFERER'] == absolute_url('scripto/index/register')
+                ? absolute_url('scripto/index/index')
+                : $_SERVER['HTTP_REFERER'];
         }
 
         $this->view->redirectUrl = $redirectUrl;
@@ -106,31 +111,40 @@ class Scripto_IndexController extends Omeka_Controller_AbstractActionController
         $registeredOK = false;
         try {
             $scripto = ScriptoPlugin::getScripto();
+            if ($scripto->isLoggedIn()) {
+                $this->_helper->redirector->goto('index');
+            }
             // Handle a registration.
             if ($this->_getParam('scripto_mediawiki_register')) {
-                $scripto->register($this->_getParam('scripto_mediawiki_username'),
-                                    $this->_getParam('scripto_mediawiki_password'),
-                                    $this->_getParam('scripto_mediawiki_email'),
-                                    $this->_getParam('scripto_mediawiki_realname'));
-                $this->view->registeredOK = true;
+                $scripto->register(
+                    $this->_getParam('scripto_mediawiki_username'),
+                    $this->_getParam('scripto_mediawiki_password'),
+                    $this->_getParam('scripto_mediawiki_email'),
+                    $this->_getParam('scripto_mediawiki_realname'));
+                $registeredOK = true;
             }
-
         } catch (Scripto_Service_Exception $e) {
             $this->_helper->flashMessenger($e->getMessage());
         }
 
         // Set the URL to redirect to on a sucessful registration.
         $redirectUrl = null;
+        // Assume login error and reassign the parameter.
         if ($this->_getParam('scripto_redirect_url')) {
-            // Assume login error and reassign the parameter.
             $redirectUrl = $this->_getParam('scripto_redirect_url');
-        } else if ('scripto' == $this->getRequest()->getModuleName() && $_SERVER['HTTP_REFERER']) {
-            // Assign HTTP referer to scripto_redirect_url parameter only if
-            // coming from the Scripto application.
-            $redirectUrl = $_SERVER['HTTP_REFERER'];
+        }
+        // Assign HTTP referer to scripto_redirect_url parameter only if
+        // coming from the Scripto application.
+        elseif ($this->getRequest()->getModuleName() == 'scripto'
+                && !empty($_SERVER['HTTP_REFERER'])
+            ) {
+            $redirectUrl = $_SERVER['HTTP_REFERER'] == absolute_url('scripto/index/register')
+                ? absolute_url('scripto/index/login')
+                : $_SERVER['HTTP_REFERER'];
         }
 
         $this->view->redirectUrl = $redirectUrl;
+        $this->view->registeredOK = $registeredOK;
         $this->view->scripto = $scripto;
     }
 
