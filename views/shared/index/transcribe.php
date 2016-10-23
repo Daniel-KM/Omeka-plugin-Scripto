@@ -62,7 +62,7 @@ jQuery(document).ready(function() {
         jQuery('#scripto-transcription').hide();
         jQuery('#scripto-page-show').text('<?php echo __('show transcription'); ?>');
     } else {
-        window.location.hash = '#transcription'
+        window.location.hash = '#transcription';
         jQuery('#scripto-talk').hide();
         jQuery('#scripto-page-show').text('<?php echo __('show discussion'); ?>');
     }
