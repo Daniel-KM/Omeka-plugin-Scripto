@@ -18,9 +18,6 @@ class Scripto_IndexController extends Omeka_Controller_AbstractActionController
                 case 'openlayers':
                     add_file_display_callback(ScriptoPlugin::$fileIdentifiersOpenLayers, 'ScriptoPlugin::openLayers');
                     break;
-                case 'zoomit':
-                    add_file_display_callback(ScriptoPlugin::$fileIdentifiersZoomIt, 'ScriptoPlugin::zoomIt');
-                    break;
                 default:
                     // Do nothing. Use Omeka default file display stategy.
                     break;
@@ -274,14 +271,6 @@ class Scripto_IndexController extends Omeka_Controller_AbstractActionController
             $this->_helper->redirector->goto('index');
         }
 
-        // Get the embed HTML for the Zoom.it image viewer.
-        if ('zoomit' == get_option('scripto_image_viewer')) {
-            $client = new Zend_Http_Client('http://api.zoom.it/v1/content');
-            $client->setParameterGet('url', $file->getWebPath(get_option('scripto_file_source')));
-            $response = json_decode($client->request()->getBody(), true);
-            $this->view->zoomIt = $response;
-        }
-
         $this->view->file = $file;
         $this->view->transcriptionPageHtml = $transcriptionPageHtml;
         $this->view->talkPageHtml = $talkPageHtml;
@@ -520,7 +509,9 @@ class Scripto_IndexController extends Omeka_Controller_AbstractActionController
 
             $this->getResponse()->setBody($body);
         } catch (Scripto_Exception $e) {
-            $this->getResponse()->setHttpResponseCode(500);
+            $this->getResponse()
+                ->setHttpResponseCode(500)
+                ->setBody($e->getMessage());
         }
     }
 }

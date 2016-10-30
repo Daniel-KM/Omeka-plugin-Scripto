@@ -66,20 +66,15 @@
     <div class="inputs five columns omega">
         <p class="explanation"><?php echo __(
             'Select an image viewer to use when transcribing image files. %1$sOpenLayers%2$s '
-          . 'and %3$sZoom.it%4$s can display JPEG, PNG, GIF, and BMP formats. Zoom.it can '
-          . 'also display TIFF and ICO formats. By using Zoom.it you awknowledge that '
-          . 'you have read and agreed to the %5$sMicrosoft Zoom.it Terms of Service%6$s',
-            '<a href="http://openlayers.org/">', '</a>',
-            '<a href="http://zoom.it/">', '</a>',
-            '<a href="http://zoom.it/pages/terms/">', '</a>'
+          . 'can display JPEG, PNG, GIF, and BMP formats.',
+            '<a href="http://openlayers.org/">', '</a>'
         ); ?></p>
         <?php echo $this->formRadio(
             'scripto_image_viewer',
             $this->image_viewer,
             null,
             array('default' => __('Omeka default'),
-                  'openlayers' => __('OpenLayers'),
-                  'zoomit' => __('Zoom.it')),
+                  'openlayers' => __('OpenLayers')),
             null
         ); ?>
     </div>
@@ -108,8 +103,8 @@
         <p class="explanation"><?php echo __(
             'Use Google Docs Viewer when transcribing document files? Document files '
           . 'include PDF, DOC, PPT, XLS, TIFF, PS, and PSD formats. By using this service '
-          . 'you acknowledge that you have read and agreed to the %1$sGoogle Docs Viewer Terms of Service%2$s.',
-          '<a href="http://docs.google.com/viewer/TOS?hl=en">', '</a>'
+          . 'you acknowledge that you have read and agreed to the %1$sGoogle Terms of Service%2$s.',
+          '<a href="https://www.google.com/intl/en/policies/terms/">', '</a>'
         ); ?></p>
         <?php echo $this->formCheckbox(
             'scripto_use_google_docs_viewer',
