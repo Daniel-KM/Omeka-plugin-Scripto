@@ -51,8 +51,9 @@ class ScriptoPlugin extends Omeka_Plugin_AbstractPlugin
      */
     protected $_options = array(
         'scripto_mediawiki_api_url' => '',
-        'scripto_allow_register' => false,
         'scripto_source_element' => 'Scripto:Transcription',
+        'scripto_import_type' => null,
+        'scripto_allow_register' => false,
         'scripto_image_viewer' => null,
         'scripto_viewer_class' => '',
         'scripto_use_google_docs_viewer' => '',
@@ -62,7 +63,6 @@ class ScriptoPlugin extends Omeka_Plugin_AbstractPlugin
         // because paths aren't available after a file is stored.
         'scripto_file_source_path' => 'original',
         'scripto_files_order' => '',
-        'scripto_import_type' => null,
         'scripto_home_page_text' => '<p>Scripto</p>',
     );
 
