@@ -171,7 +171,7 @@ and completed.
 Copyright
 ---------
 
-* Copyright Center for History and New Media, 2008-2013
+* Copyright Center for History and New Media, 2008-2016
 * Copyright Shawn Averkamp, 2012-2013
 * Copyright National Library of Wales 2015
 * Copyright JorisLambrechts
@@ -194,6 +194,6 @@ Copyright
 [UI Libraries]: http://www.lib.uiowa.edu "University of Iowa Libraries"
 [École des Mines ParisTech]: http://bib.mines-paristech.fr
 [Joris Lambrechts]: https://github.com/libis/Schatkamer "Joris Lambrechts"
-[commit5]:https://github.com/libis/Schatkamer/commit/dec4cebb37dc03f1b16603115c43f9ed593ffedf
+[commit5]: https://github.com/libis/Schatkamer/commit/dec4cebb37dc03f1b16603115c43f9ed593ffedf
 [Paul Mccann]: https://github.com/hotnuts21/plugin-Scripto "Paul McCann"
 [NLW]: http://www.llgc.org.uk

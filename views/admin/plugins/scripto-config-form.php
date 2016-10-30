@@ -67,7 +67,7 @@
         <p class="explanation"><?php echo __(
             'Select an image viewer to use when transcribing image files. %1$sOpenLayers%2$s '
           . 'can display JPEG, PNG, GIF, and BMP formats.',
-            '<a href="http://openlayers.org/">', '</a>'
+            '<a href="https://openlayers.org/">', '</a>'
         ); ?></p>
         <?php echo $this->formRadio(
             'scripto_image_viewer',
