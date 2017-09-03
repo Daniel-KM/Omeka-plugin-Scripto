@@ -294,6 +294,8 @@ class ScriptoPlugin extends Omeka_Plugin_AbstractPlugin
     {
         $view = get_view();
 
+        $this->_validateMediaWikiApiUrl();
+
         // Set form defaults.
         list($elementSetName, $elementName) = explode(':', get_option('scripto_source_element'));
         $element = get_db()->getTable('Element')->findByElementSetNameAndElementName($elementSetName, $elementName);
@@ -341,10 +343,7 @@ class ScriptoPlugin extends Omeka_Plugin_AbstractPlugin
     {
         $post = $args['post'];
 
-        // Validate the MediaWiki API URL.
-        if (!Scripto::isValidApiUrl(trim($post['scripto_mediawiki_api_url']))) {
-            throw new Omeka_Plugin_Installer_Exception('Invalid MediaWiki API URL');
-        }
+        $this->_validateMediaWikiApiUrl($post['scripto_mediawiki_api_url']);
 
         // Validate the source element.
         $element = get_record_by_id('Element', (integer) $post['scripto_source_element']);
@@ -357,6 +356,20 @@ class ScriptoPlugin extends Omeka_Plugin_AbstractPlugin
             if (isset($post[$optionKey])) {
                 set_option($optionKey, $post[$optionKey]);
             }
+        }
+    }
+
+    /**
+     * Helper to validate the MediaWiki API URL.
+     *
+     * @param string $url If not set, check the current option.
+     */
+    protected function _validateMediaWikiApiUrl($url = null)
+    {
+        $url = $url ?: get_option('scripto_mediawiki_api_url');
+        if (!Scripto::isValidApiUrl($url)) {
+            $flash = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger');
+            $flash->addMessage(__('Invalid MediaWiki API URL'), 'error');
         }
     }
 
