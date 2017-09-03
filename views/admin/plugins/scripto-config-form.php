@@ -27,6 +27,23 @@
 
     <div class="field">
         <div class="two columns alpha">
+            <label for="scripto_mediawiki_cookie_prefix"><?php echo __('MediaWiki cookie prefix'); ?></label>
+        </div>
+        <div class="inputs five columns omega">
+            <p class="explanation"><?php echo __(
+                'Enter your %sMediaWiki cookie prefix%s. This is most likely your MediaWiki database name. Only required for MediaWiki installations since 1.27.0.',
+                '<a href="https://www.mediawiki.org/wiki/Manual:$wgCookiePrefix">',
+                '</a>'); ?>
+            </p>
+            <?php echo $this->formText(
+                'scripto_mediawiki_cookie_prefix',
+                get_option('scripto_mediawiki_cookie_prefix')
+            ); ?>
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="two columns alpha">
             <?php echo $this->formLabel('scripto_source_element',
                 __('Element source used to initialize transcription')); ?>
         </div>

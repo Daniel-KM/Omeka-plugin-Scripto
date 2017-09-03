@@ -594,7 +594,12 @@ class ScriptoPlugin extends Omeka_Plugin_AbstractPlugin
             $apiUrl = get_option('scripto_mediawiki_api_url');
         }
 
-        return new Scripto(new ScriptoAdapterOmeka, array('api_url' => $apiUrl));
+        $cookiePrefix = get_option('scripto_mediawiki_cookie_prefix');
+
+        return new Scripto(new ScriptoAdapterOmeka, array(
+            'api_url' => $apiUrl,
+            'cookie_prefix' => $cookiePrefix ? $cookiePrefix : null,
+        ));
     }
 
     /**
