@@ -51,6 +51,7 @@ class ScriptoPlugin extends Omeka_Plugin_AbstractPlugin
      */
     protected $_options = array(
         'scripto_mediawiki_api_url' => '',
+        'scripto_mediawiki_cookie_prefix' => '',
         'scripto_source_element' => 'Scripto:Transcription',
         'scripto_import_type' => null,
         'scripto_allow_register' => false,
@@ -607,11 +608,11 @@ class ScriptoPlugin extends Omeka_Plugin_AbstractPlugin
             $apiUrl = get_option('scripto_mediawiki_api_url');
         }
 
-        $cookiePrefix = get_option('scripto_mediawiki_cookie_prefix');
+        $cookiePrefix = get_option('scripto_mediawiki_cookie_prefix') ?: null;
 
         return new Scripto(new ScriptoAdapterOmeka, array(
             'api_url' => $apiUrl,
-            'cookie_prefix' => $cookiePrefix ? $cookiePrefix : null,
+            'cookie_prefix' => $cookiePrefix,
         ));
     }
 

@@ -27,7 +27,8 @@
 
     <div class="field">
         <div class="two columns alpha">
-            <label for="scripto_mediawiki_cookie_prefix"><?php echo __('MediaWiki cookie prefix'); ?></label>
+            <?php echo $this->formLabel('scripto_mediawiki_cookie_prefix',
+                __('MediaWiki cookie prefix')); ?>
         </div>
         <div class="inputs five columns omega">
             <p class="explanation"><?php echo __(
