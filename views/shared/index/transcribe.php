@@ -349,7 +349,7 @@ jQuery(document).ready(function() {
  | <a href="<?php echo html_escape(url(array('controller' => 'files', 'action' => 'show', 'id' => $this->doc->getPageId()), 'id')); ?>"><?php echo __('View file'); ?></a>
 </p>
 
-<h2><?php if ($this->doc->getTitle()): ?><?php echo $this->doc->getTitle(); ?><?php else: ?><?php echo __('Untitled Document'); ?><?php endif; ?></h2>
+<h2><?php echo $this->doc->getTitle() ?: __('Untitled Document'); ?></h2>
 <?php if ($this->scripto->canExport()): ?><div><?php echo $this->formButton('scripto-transcription-document-import', __('Import document'), array('style' => 'display:inline; float:none;')); ?></div><?php endif; ?>
 <h3><?php echo $this->doc->getPageName(); ?></h3>
 
